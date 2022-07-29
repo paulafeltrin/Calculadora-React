@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export const Titulo = styled.h1`
-  color: white;
+  color: green;
   font-size: 2rem;
   font-family: "Times New Roman", Times, serif;
 `;
@@ -21,6 +21,7 @@ export const Calculadora = styled.div`
     width: 40%;
     padding: 0.8rem;
     border-radius: 5px;
+    text-align: center;
     border: none;
     outline: none;
   }
@@ -44,34 +45,40 @@ export default class App extends React.Component {
   state = {
     n1: "",
     n2: "",
-    resultado: ""
+    resultado: "",
+    operator: " "
   };
 
   soma = () => {
     this.setState({
-      resultado: Number(this.state.n1 + this.state.n2)
+      resultado: this.state.n1 + this.state.n2,
+      operator: "+"
     });
   };
   subtracao = () => {
     this.setState({
-      resultado: this.state.n1 - this.state.n2
+      resultado: this.state.n1 - this.state.n2, 
+      operator: "-"
     });
   };
   divisao = () => {
     this.setState({
-      resultado: this.state.n1 / this.state.n2
+      resultado: this.state.n1 / this.state.n2, 
+      operator: "/"
     });
   };
   multiplicacao = () => {
     this.setState({
-      resultado: this.state.n1 * this.state.n2
+      resultado: this.state.n1 * this.state.n2,
+      operator: "*"
     });
   };
   clear = () => {
     this.setState({
       resultado: "",
       n1: "",
-      n2: ""
+      n2: "",
+      operator: ""
     });
   };
   handleChange1 = (event) => {
@@ -88,14 +95,15 @@ export default class App extends React.Component {
     return (
       <Calculadora>
         <Titulo>Calculadora</Titulo>
-        <input type="number" onChange={this.handleChange1} />
-        <input type="number" onChange={this.handleChange2} />
+        <input value={this.state.n1} type="number" onChange={this.handleChange1} />
+        <h2>{this.state.operator}</h2>
+        <input value={this.state.n2} type="number" onChange={this.handleChange2} />
         <div>
-          <button onClick={this.soma}>+</button>
-          <button onClick={this.subtracao}>-</button>
-          <button onClick={this.divisao}>/</button>
-          <button onClick={this.multiplicacao}>x</button>
-          <button onClick={this.clear}>C</button>
+          <button onClick={() => {this.soma()}}>+</button>
+          <button onClick={() => {this.subtracao()}}>-</button>
+          <button onClick={() => {this.divisao()}}>/</button>
+          <button onClick={() => {this.multiplicacao()}}>x</button>
+          <button onClick={() => {this.clear()}}>C</button>
         </div>
         <h2>{this.state.resultado}</h2>
       </Calculadora>
